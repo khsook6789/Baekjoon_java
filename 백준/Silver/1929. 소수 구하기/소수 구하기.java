@@ -2,20 +2,17 @@ import java.io.*;
 import java.util.*;
 
 public class Main {
-    public static void prime(int n){
-        if(n<2){
-            return;
-        }
-        if(n==2){
-            System.out.println(n);
-            return;
-        }
+    public static boolean[] prime;
+    public static void find_prime(int n){
+        // false = 소수
+        // true = 소수 x
+        prime[0] = prime[1] = true;
         for(int i=2;i<=Math.sqrt(n);i++){
-            if(n%i==0){
-                return;
+            if(prime[i]){continue;}
+            for(int j=i*i;j<prime.length;j+=i){
+                prime[j] = true;
             }
         }
-        System.out.println(n);
     }
 
     public static void main(String[] args) throws IOException {
@@ -25,8 +22,15 @@ public class Main {
         int m = Integer.parseInt(st.nextToken());
         int n = Integer.parseInt(st.nextToken());
 
+        prime = new boolean[n+1];
+        find_prime(n);
+
+        StringBuilder sb = new StringBuilder();
         for(int i=m;i<=n;i++){
-            prime(i);
+            if(!prime[i]){
+                sb.append(i).append('\n');
+            }
         }
+        System.out.print(sb);
     }
 }
