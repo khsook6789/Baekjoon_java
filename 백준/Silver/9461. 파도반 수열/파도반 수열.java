@@ -8,18 +8,13 @@ public class Main {
 
         int T = Integer.parseInt(br.readLine());
         long[] dp = new long[101];
-        dp[0] = 0;
         dp[1] = 1;
         dp[2] = 1;
         dp[3] = 1;
-        dp[4] = 2;
-        //dp[5] = dp[0] + dp[4] = 2;
-        //dp[6] = dp[1] + dp[5] = 3
-        //dp[7] = dp[2] + dp[6] = 4
-        //dp[n] = dp[n-5] + dp[n-1]
+        //dp[n] = dp[n-2] + dp[n-3]
 
-        for(int i=5;i<=100;i++){
-            dp[i] = dp[i-5] + dp[i-1];
+        for(int i=4;i<=100;i++){
+            dp[i] = dp[i-2] + dp[i-3];
         }
 
         for(int t=0;t<T;t++){
