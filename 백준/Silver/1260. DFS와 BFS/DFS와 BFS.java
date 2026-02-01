@@ -4,10 +4,11 @@ import java.util.*;
 public class Main {
     static boolean[] visited;
     static int [][] graph;
+    static StringBuilder sb = new StringBuilder();
 
     public static void dfs(int start){
         visited[start] = true;
-        System.out.print(start + " ");
+        sb.append(start).append(" ");
 
         for(int i=1;i<graph.length;i++){
             if(graph[start][i]==1 && !visited[i]){
@@ -23,7 +24,7 @@ public class Main {
 
         while(!q.isEmpty()){
             int current = q.poll();
-            System.out.print(current + " ");
+            sb.append(current).append(" ");
 
             for(int i=1;i<graph.length;i++){
                 if(graph[current][i]==1 && !visited[i]){
@@ -54,10 +55,11 @@ public class Main {
         }
 
         dfs(v);
+        sb.append("\n");
 
-        System.out.println();
         visited = new boolean[n+1];
-
         bfs(v);
+
+        System.out.println(sb);
     }
 }
