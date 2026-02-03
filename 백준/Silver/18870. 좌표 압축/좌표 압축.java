@@ -7,19 +7,24 @@ public class Main {
 
         int n = Integer.parseInt(br.readLine());
         int[] arr = new int[n];
+        int[] sortedArr = new int[n];
+        HashMap<Integer, Integer> map = new HashMap<>();
 
         StringTokenizer st = new StringTokenizer(br.readLine());
         for(int i=0;i<n;i++){
             arr[i] = Integer.parseInt(st.nextToken());
+            sortedArr[i] = arr[i];
         }
 
-        int[] sortedArr = arr.clone();
-        sortedArr = Arrays.stream(sortedArr).distinct().sorted().toArray();
+        Arrays.sort(sortedArr);
 
-        HashMap<Integer, Integer> map = new HashMap<>();
+        int idx = 0;
 
         for(int i=0;i<sortedArr.length;i++){
-            map.put(sortedArr[i],i);
+            if(!map.containsKey(sortedArr[i])){
+                map.put(sortedArr[i],idx);
+                idx++;
+            }
         }
 
         StringBuilder sb = new StringBuilder();
