@@ -69,6 +69,6 @@ public class Main {
             sb.append("\n");
         }
 
-        System.out.print(sb.toString());
+        System.out.print(sb);
     }
 }
