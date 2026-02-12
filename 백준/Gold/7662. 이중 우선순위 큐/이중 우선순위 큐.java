@@ -12,10 +12,10 @@ public class Main {
             TreeMap<Integer, Integer> map = new TreeMap<>();
 
             for(int i=0;i<k;i++){
-                String[] input = br.readLine().split(" ");
+                StringTokenizer st = new StringTokenizer(br.readLine());
 
-                String cmd = input[0];
-                int n = Integer.parseInt(input[1]);
+                String cmd = st.nextToken();
+                int n = Integer.parseInt(st.nextToken());
 
                 if(cmd.equals("I")){
                     map.put(n, map.getOrDefault(n, 0) + 1);
