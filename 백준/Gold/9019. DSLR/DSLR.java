@@ -4,8 +4,10 @@ import java.util.*;
 public class Main {
     static String[] cmd;
     static boolean[] visited;
+    static int[] parent;
+    static StringBuilder sb;
 
-    static void bfs(int start){
+    static void bfs(int start, int end){
         Queue<Integer> q = new LinkedList<>();
         visited[start] = true;
         q.offer(start);
@@ -13,28 +15,44 @@ public class Main {
         while(!q.isEmpty()){
             int cur = q.poll();
 
+            if(cur == end){
+                int now = end;
+
+                while(now!=start){
+                    sb.append(cmd[now]);
+                    now = parent[now];
+                }
+                sb.reverse();
+
+                break;
+            }
+
             int d = (cur*2) % 10000;
             int s = cur == 0? 9999: cur-1;
             int l = (cur%1000)*10 + cur/1000;
             int r = (cur%10)*1000 + cur/10;
 
             if(!visited[d]){
-                cmd[d] = cmd[cur]+"D";
+                cmd[d] = "D";
+                parent[d] = cur;
                 q.offer(d);
                 visited[d] = true;
             }
             if(!visited[s]){
-                cmd[s] = cmd[cur]+"S";
+                cmd[s] = "S";
+                parent[s] = cur;
                 q.offer(s);
                 visited[s] = true;
             }
             if(!visited[l]){
-                cmd[l] = cmd[cur]+"L";
+                cmd[l] = "L";
+                parent[l] = cur;
                 q.offer(l);
                 visited[l] = true;
             }
             if(!visited[r]){
-                cmd[r] = cmd[cur]+"R";
+                cmd[r] = "R";
+                parent[r] = cur;
                 q.offer(r);
                 visited[r] = true;
             }
@@ -46,22 +64,22 @@ public class Main {
 
         int T = Integer.parseInt(br.readLine());
 
-        StringBuilder sb = new StringBuilder();
         for(int t=0;t<T;t++){
             StringTokenizer st = new StringTokenizer(br.readLine());
+            sb = new StringBuilder();
 
             int x = Integer.parseInt(st.nextToken());
             int y = Integer.parseInt(st.nextToken());
 
             cmd = new String[10000];
             visited = new boolean[10000];
+            parent = new int[10000];
 
             cmd[x] = "";
 
-            bfs(x);
-            sb.append(cmd[y]).append("\n");
-        }
+            bfs(x,y);
 
-        System.out.println(sb);
+            System.out.println(sb);
+        }
     }
 }
